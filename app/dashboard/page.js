@@ -2,8 +2,15 @@ import Navbar from "@/components/Navbar";
 import connectDB from "@/lib/db";
 import Journal from "@/models/Journal";
 import { revalidatePath } from "next/cache";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
   await connectDB();
 
   const journals = await Journal.find().sort({ createdAt: -1 });

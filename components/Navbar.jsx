@@ -1,30 +1,32 @@
+"use client";
+
 import Link from "next/link";
+import {
+  UserButton,
+  SignInButton,
+} from "@clerk/nextjs";
 
 export default function Navbar() {
   return (
     <nav className="flex items-center justify-between border-b px-8 py-6">
       {/* Logo */}
-      <h1 className="text-2xl font-bold">DevJournal</h1>
+      <h1 className="text-2xl font-bold">
+        DevJournal
+      </h1>
 
-      {/* Nav Links */}
+      {/* Navigation */}
       <div className="flex items-center gap-6">
-        <Link href="/" className="text-sm font-medium">
-          Home
-        </Link>
+        <Link href="/">Home</Link>
+        <Link href="/dashboard">Dashboard</Link>
+        <Link href="/create">Write</Link>
 
-        <Link href="/dashboard" className="text-sm font-medium">
-          Dashboard
-        </Link>
+        <SignInButton mode="modal">
+          <button className="rounded-xl bg-black px-5 py-2 text-white">
+            Sign In
+          </button>
+        </SignInButton>
 
-        <Link href="/create" className="text-sm font-medium">
-          Write
-        </Link>
-
-        <button className="rounded-xl bg-black px-5 py-2 text-white">
-          <Link href="/create" className="text-sm font-medium">
-            Get Started
-          </Link>
-        </button>
+        <UserButton afterSignOutUrl="/" />
       </div>
     </nav>
   );
